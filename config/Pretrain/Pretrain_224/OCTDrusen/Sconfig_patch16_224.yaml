@@ -1,0 +1,57 @@
+- model_inputs:
+    model_type: vit_base_patch16_224_normed_relu # vit_base_patch32_384_normed_relu,  vit_base_patch32_384_normed_softmax
+    image_size: 224
+    num_classes: 2
+    channels: 3
+    imgnet_pretrained: true
+    loss: nll
+    include_all_loss_in_training: true
+
+- dataset:
+    dataset_name: OCTDrusen
+    data_path: /Data/OCTDrusen/
+    shuffle: true
+    num_workers: 15
+
+- train_config:
+      power: 4.0
+      pretrain_network: true  # only true when you want to pretrain the network in contrastive learning
+      train: true # only true when you want to train the network
+      pretrain: false # only true when you want to initialize the network with pretrained weights
+      resume: false
+      allow_size_mismatch: false
+      load_path: ./
+      checkpoint: ./
+      num_epochs: 500
+      num_epoch_pretrain: 50
+      init_epoch_pretrain: 0
+      batch_size: 64
+      pretrain_batchsize: 64
+      use_gpu: true
+      init_lr: 6.0e-04
+      max_lr: 0.003
+      base_lr_cyclic: 1.0e-10
+      optimizer: adamw
+      scheduler: cosine_with_warmup
+      step_coeff: 8
+      momentum: 0.9
+      weight_decay: 0.
+      mixups_alpha: 0.
+      rand_aug: true
+      warmup_epochs: 5
+      T_mult: 1
+      eta_min: 0
+      last_epoch: -1
+      # loss coefficients
+      # pretrain
+      t_weight: 5.0
+      unif_weight: 0.0
+      koleo_loss_weight: 0.05
+      tanh_type: "avg"
+
+- log:
+    save_path: /PiPViT/Results/Pretrain_224/
+
+- where : /base_path/
+
+

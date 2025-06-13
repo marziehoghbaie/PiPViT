@@ -1,0 +1,64 @@
+- model_inputs:
+    model_type: vit_base_patch32_384_normed_relu # vit_base_patch32_384_normed_relu,  vit_base_patch32_384_normed_softmax
+    image_size: 384
+    num_classes: 2
+    channels: 3
+    imgnet_pretrained: true
+    loss: nll
+    include_all_loss_in_training: true
+
+- dataset:
+    dataset_name: OCTDrusen
+    data_path: /Data/OCTDrusen/
+    shuffle: true
+    num_workers: 15
+
+- train_config:
+      power: 4.0
+      pretrain_network: false # only true when you want to pretrain the network in contrastive learning
+      train: true # only true when you want to train the network
+      pretrain: true  # only true when you want to initialize the network with pretrained weights
+      resume: false
+      allow_size_mismatch: true
+      load_path: ./
+      checkpoint: ./
+      num_epochs: 300
+      init_epoch_pretrain: 0
+      batch_size: 64
+      pretrain_batchsize: 32
+      use_gpu: true
+      init_lr: 6.0e-05
+      max_lr: 0.003
+      base_lr_cyclic: 1.0e-10
+      optimizer: adamw
+      scheduler: cosine_with_warmup
+      step_coeff: 8
+      momentum: 0.9
+      weight_decay: 0.
+      mixups_alpha: 0.
+      rand_aug: true
+      warmup_epochs: 5
+      T_mult: 1
+      eta_min: 0
+      last_epoch: -1
+      # loss coefficients
+      # train
+      align_pf_weight_train: 0.01
+      t_weight_train: 0.01
+      unif_weight_train: 0.
+      cross_entrp_coef: 2.
+      tanh_type: avg
+      koleo_loss_weight_train: 0.
+      # clamping hyperparameters
+      clamp: true
+      clamp_value: 1.e-07 # default 1.0e-3
+      clamp_frequency: 5
+      stop_clamp_epoch: 500
+      inference: true
+
+- log:
+    save_path: /PiPViTV2/Results/train_384/
+
+- where : /base_path/
+
+

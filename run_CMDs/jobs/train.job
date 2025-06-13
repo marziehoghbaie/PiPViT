@@ -1,0 +1,24 @@
+#!/bin/sh
+#SBATCH --nodes=1
+# GP2
+#SBATCH --gres=gpu:1
+#Email notification
+#SBATCH --mail-type=FAIL
+#SBATCH --qos=normal
+#SBATCH --ntasks=15
+#SBATCH --mem=32G
+#SBATCH --time=2-00:00:00
+#SBATCH --job-name=train
+
+#module purge
+#module add cuDNN/8.0.5-CUDA-11.0.3
+
+echo $HOSTNAME
+echo $CUDA_VISIBLE_DEVICES
+echo $GPU_DEVICE_ORDINAL
+export SINGULARITYENV_CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES
+cd /base_path/PiPViT/sigularity_conf
+
+echo "!!!!!!START!!!!!!"
+singularity exec --nv --bind /base_path/PiPViT/:/base_path/PiPViT/  --bind /base_path/Data:/base_path/Data/ S-pytorch_cv2.sif /bin/bash /base_path/PiPViT/run_CMDs/sh_files/train.sh
+echo "finished"
