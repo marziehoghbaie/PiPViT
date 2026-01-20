@@ -2,8 +2,8 @@
 
 This repository presents the PyTorch code for PiPViT. 
 
-**Main Paper at arxiv**: ["PiPViT: Patch-based Visual Interpretable Prototypes for Retinal Image Analysis"](https://arxiv.org/abs/2506.10669) introduces PiPViT in retinal OCT B-scans classification.\
-The paper is submitted to J-BHI Special Issue on "Deep Learning Approaches for Image Analysis in Medical Diagnostics".
+**Main Paper at arxiv**: ["PiPViT: Patch-based Visual Interpretable Prototypes for Retinal Image Analysis"](https://www.sciencedirect.com/science/article/pii/S1746809426000996) introduces PiPViT in retinal OCT B-scans classification.\
+The paper is published in Biomedical Signal Processing and Control.
 
 
 PiPViT is an interpretable prototype-based model that learns to classify retinal OCT B-scans using only image-level labels.
